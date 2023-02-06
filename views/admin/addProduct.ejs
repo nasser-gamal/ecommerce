@@ -1,0 +1,106 @@
+<%- include('../../partials/admin/head.ejs') %> 
+<body>
+  <%- include('../../partials/admin/nav.ejs') %> 
+  <%- include('../../partials/admin/sidebar.ejs') %>
+    <div class="add-user  pb-5" id="wrapper">
+        <div class="container ">
+          <div class="profile-img">
+            <img src="" alt="">
+          </div>
+          <div class="m-auto">
+              <form  method="post" enctype="multipart/form-data" action="<%= edit ? "/admin/editProduct" : "/admin/addProduct" %>"  class=" m-auto mt-3" style="width: 400px;">
+              <% if (errorMessage.length > 0) { %> 
+                  <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= errorMessage %> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              <% } %> 
+              <% if (successMsg.length > 0) { %> 
+                  <div class="mt-2 alert alert-success alert-dismissible fade show" role="alert">
+                    <%= successMsg %> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              <% } %> 
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Title</label>
+                <input 
+                type="text"
+                  name="title"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value="<%= oldData.title  %>"
+                    >
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="addressHelp"
+                  value="<%= oldData.price  %>"
+                  >
+            </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Quantity</label>
+                <input 
+                  type="number" 
+                  name="quantity"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value="<%= oldData.quantity  %>"
+                    >
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Image</label>
+                <input 
+                  type="file"
+                  name="image"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                    >
+              </div>
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Gender</label>
+                  <select  class="form-select" name="gender" aria-label="Default select example">
+                      <option selected value="male">Male</option>
+                      <option value="female">Female</option>
+                  </select>
+              </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Brand</label>
+                    <input type="text"
+                      name="brand"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="contactHelp"
+                      value="<%= oldData.brand  %>"
+                        >
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Color</label>
+                    <input type="text"
+                      name="color"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="contactHelp"
+                      value="<%= oldData.color  %>"
+                        >
+                </div>
+              <input type="hidden" name="_csrf" value="<%= csrf %>">
+              <% if (edit) { %>
+                <input type="hidden" name="productId" value="<%= oldData._id  %>">
+              <% } %> 
+              <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Save </button>
+              </div>
+              </form>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<div id="wrapper">
+  <nav class="navbar navbar-expand-md">
+    <i class="fas fa-bars fs-5 open"></i>
+    <div class="container-fluid mx-2">
+      <div class="navbar-header">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#toggle-navbar"
+          aria-controls="toggle-navbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="uil-bars"></i>
+        </button>
+        <div>
+          <a class="navbar-brand fs-5" href="/">Pirates</a>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="toggle-navbar">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle text-white"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-user"></i>
+              <span class="caret"> <%= user?.userName %> </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/admin/settings">Settings</a></li>
+              <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <button
+                      type="submit"
+                      style="
+                        border: none;
+                        background: none;
+                        width: 100%;
+                        text-align: left;
+                      "
+                    >
+                      Logout
+                    </button>
+                  </a>
+                </li>
+              </form>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

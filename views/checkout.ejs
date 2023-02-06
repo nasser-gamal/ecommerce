@@ -1,0 +1,92 @@
+<%- include('../partials/head.ejs') %> 
+<body>
+      <div class="checkout mt-5 mx-auto pb-4">
+        <div class="container">
+          <form method="post" action="/create-payment"  id="payment-form">
+              <div class="text-center ">
+                  <h3 >Checkout</h3>
+              </div>
+              <% if (errorMessage.length > 0) { %> 
+                <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                  <%= errorMessage %> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %> 
+              <div class="mt-2 payment-errors alert alert-danger alert-dismissible fade show d-none" role="alert">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  value="<%= oldData.name %>"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  value="<%= oldData.address %>"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Contact Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactNumber"
+                  value="<%= oldData.contactNumber %>"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">credit card number</label>
+                <input
+                  type="text"
+                  class="form-control card-number"
+                  name="creditCardNumber"
+                  value="<%= oldData.creditCardNumber %>"
+                />
+              </div>
+              <div class="mb-3 d-flex">
+                  <div>
+                      <label for="exampleInputPassword1" class="form-label">Expiration Month</label>
+                      <input name="password" 
+                      type="text"
+                       class="form-control card-expiry-month"
+                      value="<%= oldData.exp_month %>"
+                       />
+                  </div>
+                  <div>
+                      <label for="exampleInputPassword1" class="form-label">Expiration Year</label>
+                      <input 
+                      name="password"
+                       type="expirationYear" 
+                       class="form-control card-expiry-year"
+                      value="<%= oldData.exp_year %>"
+                       />
+                  </div>
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">CVC</label>
+                  <input
+                    type="text"
+                    class="form-control card-cvc"
+                    aria-describedby="emailHelp"
+                    name="cvc"
+                    value="<%= oldData.cvc %>"
+                  />
+                </div>
+                <input type="hidden" class="token" name="_csrf" value="<%= csrf %>" />
+              <div class="text-center">
+              <button type="submit" class="btn btn-primary order-btn">Order</button>
+              </div>
+            </form>
+          </div> 
+      </div>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+      <script src="js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<%- include("../partials/head.ejs") %> 
+  <body>
+    <%- include("../partials/nav.ejs") %> 
+    <div class="product mt-5 pb-5">
+      <div class="container">
+        <% if (products.length > 0) { %>
+        <% if (message.length > 0) { %> 
+        <div class="alert alert-success alert-dismissible fade show  fw-bold my-2" role="alert">
+            <%= message %> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %> 
+        <div class="row">
+          <% products.forEach(product => { %>
+          <div class="col-10 col-sm-6 col-md-4 col-lg-3 m-auto mx-md-0 mt-4">
+            <div class="card">
+              <div class="card-image text-center">
+                <img
+                  src="<%= product.image %>"
+                  class="card-img-top"
+                  alt="<%= product.image %>"
+                />
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= product.title %></h5>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">
+                    brand : <span><%= product.description.brand %> </span>
+                    <br />
+                    gender :<span><%= product.description.gender %> </span>
+                  </p>
+                  <p class="card-text">
+                    color : <span><%= product.description.color %> </span>
+                    <br />
+                    price : <span><%= product.price %>$ </span>
+                  </p>
+                </div>
+                <div class="text-center mt-2">
+                  <form action="/addCart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrf %>">
+                    <input type="hidden" name="productId" value="<%= product._id %>">
+                    <button type="submit" class="btn btn-success">
+                      Add To Cart
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+
+        <% if (pagenation) { %> 
+         <div class="text-center">
+          <nav aria-label="..." class="mt-4 ">
+            <ul class="pagination pagination-sm justify-content-center">
+                <% if (currentPage > 2) { %>
+                    <li class="page-item">
+                        <a href="/?page=1" class="page-link">1</a>
+                    </li>
+                <%  } %> 
+                <% if (hasPreviousPage) { %>
+                    <li class="page-item">
+                        <a href="/?page=<%= previousPage %>" class="page-link"><%= previousPage  %> </a>
+                    </li>
+                <%  } %> 
+            <% if (currentPage) { %> 
+                <li class="page-item active" aria-current="page">
+                <a href="/?page=<%= currentPage %>" class="page-link"><%= currentPage  %> </a>
+            </li>
+                <% } %>  
+            <% if (hasNextPage) { %>
+                <li class="page-item">
+                    <a href="/?page=<%= nextPage %>" class="page-link"><%= nextPage  %> </a>
+                </li>
+            <%  } %> 
+            </ul>
+        </nav>
+         </div>
+      <% } %> 
+      </div>
+    </div>
+    
+  </body>
+</html>

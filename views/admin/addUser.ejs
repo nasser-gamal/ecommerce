@@ -1,0 +1,121 @@
+<%- include('../../partials/admin/head.ejs') %> 
+<body>
+  <%- include('../../partials/admin/nav.ejs') %> 
+  <%- include('../../partials/admin/sidebar.ejs') %>
+    <div class="add-user  pb-5" id="wrapper">
+        <div class="container ">
+          <div class="profile-img">
+            <img src="" alt="">
+          </div>
+          <div class="row">
+            <div class="<%= edit ? "col-6" : ""  %>">
+              <form  method="post" action="<%= edit ? "/admin/editUser" : "/admin/addUser" %>" class="m-auto mt-3" style="width: 400px;">
+              <% if (errorMessage.length > 0) { %> 
+                  <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= errorMessage %> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              <% } %> 
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">UserName</label>
+                <input 
+                type="text"
+                  name="userName"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value="<%= oldData.userName  %>"
+                    >
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input 
+                  type="email" 
+                  name="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value="<%= oldData.email  %>"
+                    >
+              </div>
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Role</label>
+                  <select  class="form-select" name="role" aria-label="Default select example">
+                      <option selected value="user">user</option>
+                      <option value="admin">admin</option>
+                  </select>
+              </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">ContactNumber</label>
+                    <input type="text"
+                      name="contactNumber"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="contactHelp"
+                      value="<%= oldData.contactNumber  %>"
+                        >
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="addressHelp"
+                      value="<%= oldData.address  %>"
+                      >
+                </div>
+                <% if (!edit) { %> 
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">ConfirmPassword</label>
+                    <input type="password"  name="confirmPassword"class="form-control" id="exampleInputPassword1">
+                  </div>
+              <% } %> 
+              <input type="hidden" name="_csrf" value="<%= csrf  %>">
+              <input type="hidden" name="userId" value="<%= oldData._id  %>">
+              <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Save </button>
+              </div>
+              </form>
+            </div>
+            <% if (edit) { %> 
+            <div class="col-6">
+              <form  method="post" action="/admin/edit-password" class="text-white m-auto mt-3" style="width: 400px;">
+                <% if (passwordError.length > 0) { %> 
+                  <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= passwordError %> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              <% } %> 
+              <% if (passwordSuccess.length > 0) { %> 
+                  <div class="mt-2 alert alert-success alert-dismissible fade show" role="alert">
+                    <%= passwordSuccess %> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              <% } %> 
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">ConfirmPassword</label>
+                  <input type="password"  name="confirmPassword"class="form-control" id="exampleInputPassword1">
+                </div>
+                <input type="hidden" name="_csrf" value="<%= csrf  %>">
+                <input type="hidden" name="userId" value="<%= oldData._id  %>">
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+              </form>
+            </div>
+            <% } %> 
+          </div>
+        </div>
+    </div>
+</body>
+</html>

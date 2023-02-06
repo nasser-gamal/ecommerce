@@ -1,0 +1,111 @@
+<%- include('../partials/head.ejs') %> <%- include('../partials/nav.ejs') %>
+<body>
+    <div class="cart-page position-relative">
+        <div class="container">
+          <% if (cart && cart?.totalQuantity > 0 ) { %> 
+            <div class="cart-title text-center text-md-start py-5">
+              <h2 class="fw-bold fs-2">
+                Shopping <span>Cart</span>
+              </h2>
+            <span class="fw-bold">You have <span>(<%= cart?.totalQuantity %>)</span> items in your Cart</span>
+          </div>
+            <% } else { %> 
+               <div class="cart-page-empty mt-9">
+                <div class="empty-cart fw-bold text-center ">
+                  <div class="empty-info">
+                    <span class="d-block">Your Cart Is Empty</span>
+                    <a href="/" class="d-block m-auto text-center">
+                      <button class="btn">Shopping Now</button>
+                    </a>
+                  </div>
+                </div>
+              </div>   
+             <% } %> 
+          <% if (cart && cart?.totalQuantity > 0) {  %> 
+            <!-- row parent -->
+          <div class="row justify-content-between">
+            <!-- products  -->
+            <div class="cart-products pb-5 col-12 col-lg-7">
+                <div class="cart-products-content ">
+                    <% cart.products.forEach( product => { %> 
+                  <div class="cart-products-info p-3 mt-1">
+                    <div class="product-cart d-flex align-items-center justify-content-between flex-column flex-md-row">
+                      <div class="left d-flex align-items-center flex-column flex-md-row w-100">
+                        <div class="product-img p-2">
+                          <img src="<%= product.productId.image %>" alt="" />
+                        </div>
+                        <div class="product-text my-3 my-md-0 ms-3">
+                          <h3 class="fs-5 fw-bold m-0"><%= product.productId.title %></h3>
+                          <span class="d-block">Hight Ligth</span>
+                        </div>
+                      </div>
+                      <div class="right d-flex align-items-center">
+                        <div class="num-quentit fw-bold me-4 d-flex gap-2">
+                          <span class="increment" >
+                            <form method="post" action="/increment/<%= product._id %>">
+                              <input type="hidden" name="_csrf" value="<%= csrf %>">
+                              <button type="submit">
+                                <i class="fa-sharp fa-solid fa-plus"></i>
+                              </button>
+                            </form>
+                           </span>
+                          <span class="num px-1"><%= product.quantity %> </span>
+                          <span class=<%= product.quantity === 1 ? "disabled"  : "decrement"%> >
+                            <form method="post" action="/decrement/<%= product._id %>">
+                              <input type="hidden" name="_csrf" value="<%= csrf %>">
+                              <button type="submit">
+                                <i class="fa-sharp fa-solid fa-minus"></i>
+                              </button>
+                            </form>
+                          </span>
+                        </div>
+                        <div class="price fw-bold me-3">
+                          <span><%= product.totalPrice %>$</span>
+                        </div>
+                        <div class="delete fs-5 d-flex">
+                            <form action="/deleteCart/<%= product.productId._id %>" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrf %>">
+                                <button type="submit" class="btn ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %> 
+                </div>
+              </div>
+              <!-- Order Summary  -->
+              <div class="cart-checkout col-12 col-md-4">
+                <div class="cart-checkout-content p-4">
+                  <div class="text-center pb-3 ">
+                    <h2 class="fw-bold fs-3">Order Summary</h2>
+                  </div>
+                  <div class="cart-checkout-info">
+                    <div class="price d-flex justify-content-between mt-2">
+                      <span class="fw-bold">Price :</span>
+                      <span class="fw-bold"><%= cart.totalPrice %>$ </span>
+                    </div>
+                    <div class="discount d-flex justify-content-between mt-2">
+                      <span class="fw-bold">Discount :</span>
+                      <span class="fw-bold">0$</span>
+                    </div>
+                    <div class="total d-flex justify-content-between mt-2">
+                      <span class="fw-bold">Total :</span>
+                      <span class="fw-bold"><%= cart.totalPrice %>$ </span>
+                    </div>
+                    <div class="cart-check-btn mt-4 ">
+                      <a href="/checkout">
+                      <button class="text-white fw-bold">Order</button>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <% } %> 
+        </div>
+     </div>
+</body>
+</html>

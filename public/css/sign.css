@@ -1,0 +1,166 @@
+.sign-page form {
+  width: 400px;
+  margin: auto;
+}
+.login-content {
+  width: 350px;
+  margin:  auto;
+  max-width: 100%;
+}
+@media (max-width: 767px) {
+  .login-content {
+    margin-top: 50px;
+  }
+}
+@media (max-width: 575px) {
+  .login-content {
+    width: 340px;
+  }
+}
+.login {
+  border: 1px solid rgba(0, 0, 0, 0.178);
+  padding: 20px;
+  border-radius: 5px;
+}
+.login-content .logo {
+  width: fit-content;
+  display: block;
+  margin: 40px auto;
+  font-size: 30px;
+}
+
+.login .sign {
+  font-size: 25px;
+}
+.login .login-info .input-div {
+  display: flex;
+  flex-direction: column;
+}
+.login .login-info .input-div input {
+  border-radius: 5px;
+  outline: none;
+  padding: 5px 5px 5px 10px;
+  border: 1px solid rgba(2, 2, 2, 0.479);
+}
+.login .login-info .input-div input:focus {
+  border: 2px solid rgb(25 153 215);
+}
+.login .login-info button {
+    width: 100%;
+    padding: 4px;
+    color: black;
+  background-color: #f0c14b;
+  border: 1px solid rgb(0 0 0 / 32%);
+  transition: 0.5s;
+}
+.login .login-info button:hover {
+  background-color: #e6a606;
+}
+.login .login-info button:focus {
+  box-shadow: none;
+}
+.error {
+  font-size: 14px;
+  color: red;
+}
+
+.login input::placeholder {
+  font-size: 14px;
+}
+.login .input-div svg {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.input-error {
+  border: 2px solid red !important;
+  box-shadow: none;
+}
+
+.login-content .new-acc {
+  font-size: 15px;
+}
+.login-content .new-acc::before {
+  content: '';
+  width: 120px;
+  height: 0.3px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #0000003b;
+}
+.login-content .new-acc::after {
+  content: '';
+  width: 120px;
+  height: 0.3px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #0000003b;
+}
+.login-content a button {
+  width: 100%;
+  font-size: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.233);
+  border-radius: 3px;
+  outline: none;
+  transition: 0.5s;
+}
+.login-content a button:hover {
+  background-color: #d8d7d7;
+}
+.login .help {
+  cursor: pointer;
+}
+.login .help:hover span {
+  text-decoration: underline;
+  color: red;
+}
+.login .help span {
+  font-size: 13px;
+  color: #0068bb;
+
+}
+.login .help svg {
+  font-size: 10px;
+}
+.login .help-info a {
+  font-size: 13px;
+  color: #0068bb !important;
+}
+.login .help-info a:hover {
+  text-decoration: underline !important;
+  color: red !important;
+}
+.create-acc {
+  font-size: 15px !important;
+  padding: 6px;
+}
+.login-done {
+  position: fixed !important;
+  top: 80px;
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  transform: translateX(-100%);
+}
+.login-page div.show {
+  transform: translateX(0);
+}
+@media (max-width: 767px) {
+  .login-done {
+    top: 50px;
+  }
+}
+
+.spinner-border {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

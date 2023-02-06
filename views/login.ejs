@@ -1,0 +1,59 @@
+<%- include('../partials/head.ejs') %> <%- include('../partials/nav.ejs') %>
+<body>
+
+    <div class="login-page mt-5 pb-5">
+      <div class="container">
+        <div class="login-content">
+          <div class="login">
+            <div class="sign">Sign-In</div>
+            <% if (errorMessage.length > 0) { %> 
+              <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
+                <%= errorMessage %> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <% } %> 
+                  <form method="post" action="/login">
+                    <div class="login-info">
+                      <div class="input-div mt-3">
+                        <label class="mb-2">Email</label>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="Your Eamil"
+                          value="<%= oldData.email %>"
+                        />
+                      </div>
+                      <div class="input-div mt-3">
+                        <label class="mb-2">Password</label>
+                          <input
+                            type="password"
+                            name="password"
+                            placeholder="Your Password"
+                          />
+                      </div>
+                       <input type="hidden" name="_csrf" value="<%= csrf %>" />
+                      <button
+                        class="btn mt-4"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                        <div class="help-info mt-3 ms-3">
+                          <a class="d-block" href="/forget-password">
+                            Forgot your password?
+                          </a>
+                        </div>
+                    </div>
+                  </form>
+          </div>
+          <div class="new-acc position-relative my-3 text-center">
+            New to Pirates?
+          </div>
+          <a href="/Register">
+            <button class=" create-acc">Create your Pirates account</button>
+          </a>
+        </div>
+      </div>
+    </div>
+</body>
+</html >

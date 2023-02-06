@@ -1,0 +1,126 @@
+<%- include('../../partials/admin/head.ejs') %> 
+<body>
+  <%- include('../../partials/admin/nav.ejs') %> 
+  <%- include('../../partials/admin/sidebar.ejs') %>
+    <section class="users mt-7" id="wrapper">
+        <div class="container">
+            <% if (successMessage.length > 0) { %> 
+                <div class="mt-2 alert alert-success alert-dismissible fade show" role="alert">
+                  <%= successMessage %> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %> 
+            <!-- <div class="filter">
+                <a class="dropdown-item" href="/admin/users">
+                    <i class="fas fa-arrow-up fs-5"></i>
+                    <i class="fas fa-arrow-down fs-5"></i>
+                </a>
+            </div> -->
+            <div class="new-user d-flex justify-content-between">
+                <form method="post" action="/admin/excel/users">
+                    <input type="hidden" name="_csrf" value="<%= csrf  %>">
+                    <button type="submit" class="btn btn-primary" title="Export to Excel File">
+                        Export
+                    </button>
+                </form>
+                <a href="/admin/addUser" class="btn btn-primary" >Add New</a>
+            </div>
+            <!-- Table  -->
+            <div class="table-responsive">
+                <table class="table  text-center   mb-3">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">name</th>
+                        <th scope="col">email</th>
+                        <th scope="col">contactNumber</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">role</th>
+                        <th scope="col">status</th>
+                        <th scope="col">CreatedAt</th>
+                        <th scope="col">action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% if (users.length > 0) { %> 
+                            <% users.forEach((user, index) => { %> 
+                                <tr>
+                                    <td><%= index + 1  %></td>
+                                    <td>
+                                        <%= user.userName %> 
+                                    </td>
+                                    <td>
+                                        <%= user.email %> 
+                                    </td>
+                                    <td>
+                                        <%= user.contactNumber %> 
+                                    </td>
+                                    <td>
+                                        <%= user.address %> 
+                                    </td>
+                                    <td>
+                                        <%= user.role %> 
+                                    </td>
+                                    <td>
+                                        Active
+                                    </td>
+                                    <td>
+                                        <% const date = user.createdAt %>
+                                         <% const year = date.getFullYear() %>
+                                         <% const month = date.getMonth() + 1 %> <% const day = date.getDate() %>
+                                        <% const hours = date.getHours() > 12 ? (date.getHours() - 12) : `0${date.getHours()}`  %>
+                                        <% const minutes = date.getMinutes() > 12 ? date.getMinutes() : `0${date.getMinutes()}`  %>
+                                        <% const period  = date.getHours() > 12 ? "pm" : "am"  %>   
+
+                                        <span class="d-block"> <%= day %>/<%= month %>/<%= year %></span>
+                                         <span><%= hours %>:<%= minutes %> <%= period %></span>
+                                    </td>
+                                    <td>
+                                        <div  class="gap-1 d-flex  justify-content-center">
+                                            <a class="dropdown-item" href="/admin/editUser/<%= user._id %>?edit=true">
+                                                <img style="width: 25px;"  src="../images/pencil.png" alt="">
+                                            </a>
+                                            <a class="dropdown-item" href="/admin/access/user?_id=<%= user._id %>">
+                                                <img  style="width: 25px;"  src="../images/delete.png" alt="">
+                                            </a>
+                                            <a class="dropdown-item" title="user's Image" target="<%= user.image ? "_blank" : "" %>" href="<%= user.image ? "../" + user.image : '/admin/users' %>">
+                                                <img  style="width: 25px;"  src="../images/eye.png" alt="">
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <%  }) %> 
+                        <% } %> 
+                    </tbody>
+                </table>
+            </div>
+            <% if (pagenation) { %> 
+                <nav aria-label="..." class="mt-2 text-center">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        <% if (currentPage > 2) { %>
+                            <li class="page-item">
+                                <a href="/admin/users?page=1" class="page-link">1</a>
+                            </li>
+                        <%  } %> 
+                        <% if (hasPreviousPage) { %>
+                            <li class="page-item">
+                                <a href="/admin/users?page=<%= previousPage %>" class="page-link"><%= previousPage  %> </a>
+                            </li>
+                        <%  } %> 
+                    <% if (currentPage) { %> 
+                        <li class="page-item active" aria-current="page">
+                        <a href="/admin/users?page=<%= currentPage %>" class="page-link"><%= currentPage  %> </a>
+                    </li>
+                        <% } %>  
+                    <% if (hasNextPage) { %>
+                        <li class="page-item">
+                            <a href="/admin/users?page=<%= nextPage %>" class="page-link"><%= nextPage  %> </a>
+                        </li>
+                    <%  } %> 
+                    </ul>
+                </nav>
+            <% } %> 
+        </div>
+    </section>
+</body>
+</html>

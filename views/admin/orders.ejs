@@ -1,0 +1,117 @@
+<%- include('../../partials/admin/head.ejs') %> 
+<body>
+  <%- include('../../partials/admin/nav.ejs') %> 
+  <%- include('../../partials/admin/sidebar.ejs') %>
+    <section class="orders mt-7" id="wrapper">
+        <div class="container">
+            <!-- Table  -->
+            <% if (orders.length > 0) { %> 
+            <% orders.forEach((order, index) => {%> 
+                <div class="pb-5 order-info">
+                    <div class=" mb-4 d-flex justify-content-between" >
+                        <div>
+                            <span class="d-block fw-bold">Order ID : <%= order._id %> </span>
+                            <span class="d-block fw-bold">name : <%= order.name %> </span>
+                            <span class="d-block fw-bold">Contact Number : <%= user.contactNumber %> </span>
+                            <span class="d-block fw-bold">Address : <%= order.address %> </span>
+                                <% const date = order.createdAt %>
+                                 <% const year = date.getFullYear() %>
+                                 <% const month = date.getMonth() + 1 %> <% const day = date.getDate() %>
+                                <% const hours = date.getHours() > 12 ? (date.getHours() - 12) : `${date.getHours()}`  %>
+                                <% const minutes = date.getMinutes() > 12 ? date.getMinutes() : `0${date.getMinutes()}`  %>
+                                <% const period  = date.getHours() > 12 ? "pm" : "am"  %>   
+                                <span class="fw-bold">Order Date : <%= day %>/<%= month %>/<%= year %></span>
+                                 <span class="fw-bold">at: <%= hours %>:<%= minutes %> <%= period %></span>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Export
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>  
+                                        <form method="post" action="/admin/pdf/order">
+                                            <input type="hidden" name="orderId" value="<%= order._id %>">
+                                            <input type="hidden" name="_csrf" value="<%= csrf  %>">
+                                            <button type="submit " class="dropdown-item btn">
+                                                PDF
+                                            </button>
+                                         </form>
+                                     </li>
+                                    <li>
+                                        <form method="post" action="/admin/excel/order">
+                                            <input type="hidden" name="orderId" value="<%= order._id %>">
+                                            <input type="hidden" name="_csrf" value="<%= csrf  %>">
+                                            <button type="submit " class="dropdown-item btn">
+                                                Excel
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <div class="table-responsive">
+                    <table class="table text-center   mb-3">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">ProductName</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">ProductQuantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <% order.products.forEach((product, index) => { %> 
+                                    <tr>
+                                        <td><%= index + 1 %>  </td>
+                                        <td><%= product.productId.title %> </td>
+                                        <td><%= product.productId.description.brand %> </td>
+                                        <td><%= product.productId.description.color %> </td>
+                                        <td><%= product.quantity  %> </td>
+                                        <td><%= product.totalPrice  %> </td>
+                                    </tr>
+                                <%  }) %>
+                                <tr class="total">
+                                    <td class="fw-bold text-white" colspan="4">Total</td>
+                                    <td class="fw-bold text-white"><%= order.totalQuantity %> </td>
+                                    <td class="fw-bold text-white"><%= order.totalPrice %> </td>
+                                </tr> 
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            <%   })  %> 
+            <% }  %> 
+            <% if (pagenation) { %> 
+                <nav aria-label="..." class="mt-2 text-center">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        <% if (currentPage > 2) { %>
+                            <li class="page-item">
+                                <a href="/admin/orders?page=1" class="page-link">1</a>
+                            </li>
+                        <%  } %> 
+                        <% if (hasPreviousPage) { %>
+                            <li class="page-item">
+                                <a href="/admin/orders?page=<%= previousPage %>" class="page-link"><%= previousPage  %> </a>
+                            </li>
+                        <%  } %> 
+                    <% if (currentPage) { %> 
+                        <li class="page-item active" aria-current="page">
+                        <a href="/admin/orders?page=<%= currentPage %>" class="page-link"><%= currentPage  %> </a>
+                    </li>
+                        <% } %>  
+                    <% if (hasNextPage) { %>
+                        <li class="page-item">
+                            <a href="/admin/orders?page=<%= nextPage %>" class="page-link"><%= nextPage  %> </a>
+                        </li>
+                    <%  } %> 
+                    </ul>
+                </nav>
+            <% } %> 
+        </div>
+    </section>
+</body>
+</html>

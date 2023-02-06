@@ -1,0 +1,98 @@
+<aside
+  class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left"
+  id="show-side-navigation1"
+>
+  <i class="fas fa-bars fs-5 close"></i>
+
+  <div class="sidebar-header text-center px-3 py-4">
+    <img
+      class="rounded-pill img-fluid"
+      width="65"
+      src="<%= user.image ?  user.image : "../images/user.png"  %> "
+      alt=""
+    />
+    <div class="ms-2 mt-2">
+      <h5 class="fs-6 mb-0">
+        <span class="text-white"><%= user.userName %></span>
+      </h5>
+    </div>
+  </div>
+
+  <!-- <div class="search position-relative text-center px-4 py-3 mt-2">
+    <input
+      type="text"
+      class="form-control w-100 border-0 bg-transparent"
+      placeholder="Search here"
+    />
+    <i class="fa fa-search position-absolute d-block fs-6"></i>
+  </div> -->
+
+  <ul class="categories list-unstyled">
+    <li class="d-flex justify-content-between align-items-center  <%= path === "/dashboard" ? "active" : "" %> ">
+      <a href="/admin/dashboard" class=""> Dashboard </a>
+      <img style="width: 20px" class="img-fluid" src="/images/list.png" alt="" />
+    </li>
+    <li class="d-flex justify-content-between align-items-center  <%= path === "/users" ? "active" : "" %> ">
+      <a href="/admin/users">Users</a>
+      <img style="width: 20px" class="img-fluid" src="/images/user.png" alt="" />
+    </li>
+    <li class="d-flex justify-content-between align-items-center  <%= path === "/orders" ? "active" : "" %> ">
+      <a href="/admin/orders">Orders</a>
+      <img
+        style="width: 20px"
+        class="img-fluid"
+        src="/images/checklist.png"
+        alt=""
+      />
+    </li>
+    <li class="d-flex justify-content-between align-items-center  <%= path === "/products" ? "active" : "" %> ">
+      <a href="/admin/products">Products</a>
+      <img
+        style="width: 20px"
+        class="img-fluid"
+        src="/images/delivery.png"
+        alt=""
+      />
+    </li>
+    <!-- <li class="d-flex justify-content-between align-items-center  <%= path === "/reports" ? "active" : "" %> ">
+      <a href="/admin/reports">Reports</a>
+      <img
+        style="width: 20px"
+        class="img-fluid"
+        src="/images/report.png"
+        alt=""
+      />
+    </li> -->
+    <li class="d-flex justify-content-between align-items-center  <%= path === "/settings" ? "active" : "" %> ">
+      <a href="/admin/settings"> Settings</a>
+      <img
+        style="width: 20px"
+        class="img-fluid"
+        src="/images/settings.png"
+        alt=""
+      />
+    </li>
+    <!-- <li class="has-dropdown">
+      <i class="uil-panel-add"></i><a href="#"> Charts</a>
+      <ul class="sidebar-dropdown list-unstyled">
+        <li><a href="#">Lorem ipsum</a></li>
+        <li><a href="#">ipsum dolor</a></li>
+        <li><a href="#">dolor ipsum</a></li>
+        <li><a href="#">amet consectetur</a></li>
+        <li><a href="#">ipsum dolor sit</a></li>
+      </ul>
+    </li> -->
+    <li class="d-flex justify-content-between align-items-center">
+      <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrf %>" />
+        <button class="btn w-100 text-white" type="submit">Logout</button>
+      </form>
+      <img
+        style="width: 20px"
+        class="img-fluid"
+        src="/images/power-off.png"
+        alt=""
+      />
+    </li>
+  </ul>
+</aside>
