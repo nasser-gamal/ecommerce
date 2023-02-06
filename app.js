@@ -9,7 +9,6 @@ const MongoSession = require("connect-mongodb-session")(session);
 const multer = require("multer");
 const scrf = require("csurf");
 const expressIp = require("express-ip");
-const helmet = require("helmet");
 // require("./config/passport");
 require("dotenv").config();
 
