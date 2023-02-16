@@ -128,7 +128,6 @@ const exportOrderPDF = async (req, res) => {
 
     const products = [];
 
-    console.log(order);
     order.products.map((product) => {
       return products.push({
         title: product.productId.title,
@@ -154,23 +153,31 @@ const exportOrderPDF = async (req, res) => {
     doc.fontSize(16).text(date, 400, 105);
 
     // Add a table for the products
-    doc.fontSize(16).text("Name", 50, 250);
-    doc.fontSize(16).text("Brand", 200, 250);
-    doc.fontSize(16).text("Color", 350, 250);
-    doc.fontSize(16).text("Quantity", 450, 250);
-    doc.fontSize(16).text("Price", 550, 250);
+    doc.fontSize(15).text("Name", 50, 250);
+    doc.fontSize(15).text("Brand", 150, 250);
+    doc.fontSize(15).text("Color", 350, 250);
+    doc.fontSize(15).text("Quantity", 450, 250);
+    doc.fontSize(15).text("Price", 550, 250);
+    doc.fontSize(15).text("createAt", 650, 250);
+    doc.moveTo(50, 250).lineTo(600, 250).stroke();
 
     products.forEach((product, i) => {
-      doc.fontSize(16).text(product.title, 50, 270 + i * 32);
-      doc.fontSize(16).text(product.brand, 200, 270 + i * 30);
-      doc.fontSize(16).text(product.color, 350, 270 + i * 30);
-      doc.fontSize(16).text(product.quantity, 450, 270 + i * 30);
-      doc.fontSize(16).text(product.price, 550, 270 + i * 30);
+      doc.fontSize(14).text(product.title, 50, 280 + i * 32);
+      doc.fontSize(14).text(product.brand, 200, 280 + i * 30);
+      doc.fontSize(14).text(product.color, 350, 280 + i * 30);
+      doc.fontSize(14).text(product.quantity, 450, 280 + i * 30);
+      doc.fontSize(14).text(product.price, 550, 280 + i * 30);
+      doc.moveTo(50, 270).lineTo(600, 270).stroke();
     });
+   
+
+
+
 
     // Add the discount and total price
-    doc.fontSize(18).text(`Discount: ${discount}`, 380, 440);
-    doc.fontSize(18).text(`Total Price: ${totalPrice}`, 380, 470);
+    doc.moveTo(50, 400).lineTo(600, 400).stroke();
+    doc.fontSize(18).text(`Discount: ${discount}`, 380, 420);
+    doc.fontSize(18).text(`Total Price: ${totalPrice}`, 380, 450);
 
     doc.pipe(res);
 
@@ -180,7 +187,6 @@ const exportOrderPDF = async (req, res) => {
       'inline; filename="' + `invoice-${order.name}.pdf` + '"'
     );
     // End the PDF
-    doc.end();
   } catch (err) {
     console.log(err);
     return res.redirect("/500");
