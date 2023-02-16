@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const session = require("express-session");
-const MongoSession = require("connect-mongodb-session")(session);
+// const MongoSession = require("connect-mongodb-session")(session);
 const multer = require("multer");
 const scrf = require("csurf");
 const expressIp = require("express-ip");
@@ -34,10 +34,10 @@ const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWOR
 
 const csrfPortection = scrf();
 
-const store = new MongoSession({
-  uri,
-  collection: "session",
-});
+// const store = new MongoSession({
+//   uri,
+//   collection: "session",
+// });
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -72,7 +72,7 @@ app.use(
     secret: "shoppingCart!",
     saveUninitialized: false,
     resave: false,
-    store,
+    // store,
   })
 );
 app.use(flash());
