@@ -29,7 +29,7 @@ const settingsRoutes = require("./routes/admin/settings");
 const User = require("./models/user");
 const Cart = require("./models/cart");
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vhixoru.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
 
 const csrfPortection = scrf();
