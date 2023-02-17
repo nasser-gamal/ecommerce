@@ -2,9 +2,9 @@ const Cart = require("../models/cart");
 const Order = require("../models/order");
 const { validationResult } = require("express-validator");
 
-const stripe = require("stripe")(
-  "sk_test_51MShscBxBfRJQLlvXRDeAnQnk0Op9mKltQgxNKCCoFifNhvOjRR0l4QC9ik0qvgDuYlPFL2y4bs58mQT0XKcuDoR00q2s2yYFv"
-);
+// const stripe = require("stripe")(
+//   "sk_test_51MShscBxBfRJQLlvXRDeAnQnk0Op9mKltQgxNKCCoFifNhvOjRR0l4QC9ik0qvgDuYlPFL2y4bs58mQT0XKcuDoR00q2s2yYFv"
+// );
 
 const getCheckout = (req, res) => {
   try {
@@ -73,11 +73,11 @@ const createPayment = async (req, res) => {
       });
     }
 
-    const charge = await stripe.charges.create({
-      amount: cart.totalPrice * 100,
-      source: stripeToken,
-      currency: "usd",
-    });
+    // const charge = await stripe.charges.create({
+    //   amount: cart.totalPrice * 100,
+    //   source: stripeToken,
+    //   currency: "usd",
+    // });
 
     const order = new Order({
       name,
@@ -87,7 +87,7 @@ const createPayment = async (req, res) => {
       userId: cart.userId,
       totalPrice: cart.totalPrice,
       totalQuantity: cart.totalQuantity,
-      paymentId: charge.id,
+      // paymentId: charge.id,
       paymentStatus: "success",
     });
 

@@ -44,7 +44,7 @@ const addToCart = async (req, res) => {
         products: [products],
         totalQuantity: 1,
         totalPrice: products.totalPrice,
-        createAt: Date.now(),
+        createdAt: Date.now(),
       });
       cart.save();
 
@@ -65,7 +65,7 @@ const addToCart = async (req, res) => {
 
         cart.totalPrice += +_product.price;
         cart.totalQuantity += 1;
-        cart.createAt = Date.now();
+        cart.createdAt = Date.now();
 
         Cart.findOneAndUpdate({ userId }, { $set: cart })
           .then((result) => {
@@ -122,7 +122,7 @@ const incrementProduct = async (req, res) => {
     cart.products[productIndex].quantity += 1;
     // increment The Price
     cart.products[productIndex].totalPrice += productPrice;
-    cart.createAt = Date.now();
+    cart.createdAt = Date.now();
 
     // increment cart totalPrice
     cart.totalPrice += productPrice;
@@ -183,7 +183,7 @@ const decrementProduct = async (req, res) => {
     cart.totalPrice -= productPrice;
     // increment cart totalQuantity
     cart.totalQuantity -= 1;
-    cart.createAt = Date.now();
+    cart.createdAt = Date.now();
 
     // Update The Cart
     Cart.findOneAndUpdate({ userId }, { $set: cart })

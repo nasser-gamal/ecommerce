@@ -8,7 +8,7 @@ const session = require("express-session");
 // const MongoSession = require("connect-mongodb-session")(session);
 const multer = require("multer");
 const scrf = require("csurf");
-const expressIp = require("express-ip");
+// const expressIp = require("express-ip");
 // require("./config/passport");
 require("dotenv").config();
 
@@ -65,7 +65,7 @@ app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 app.use(cookieParser());
 app.use(multer({ storage, fileFilter }).single("image"));
-app.use(expressIp().getIpInfoMiddleware);
+// app.use(expressIp().getIpInfoMiddleware);
 
 app.use(
   session({
