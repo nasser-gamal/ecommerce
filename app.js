@@ -150,7 +150,7 @@ app.use((req, res, next) => {
 });
 
 // Connect To Mongo DataBase
-mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", true);
 
 mongoose
   .connect(uri)
